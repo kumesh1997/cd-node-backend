@@ -1,5 +1,5 @@
 [
-    { "id": 1, "first_name": "Laptop", "last_name": "", "email" : "", "password": "1200" },
-    { "id": 2, "first_name": "Laptop", "last_name": "", "email" : "", "password": "1200"},
-    { "id": 3,"first_name": "Laptop", "last_name": "", "email" : "", "password": "1200" }
+    { "id": 1, "firstName": "Laptop", "lastName": "", "email" : "tharindukumesh09@gmail.com", "password": "1234" },
+    { "id": 2, "firstName": "Laptop", "lastName": "", "email" : "", "password": "1200"},
+    { "id": 3,"firstName": "Laptop", "lastName": "", "email" : "", "password": "1200" }
   ]
