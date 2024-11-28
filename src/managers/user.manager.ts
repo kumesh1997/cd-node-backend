@@ -1,4 +1,5 @@
 import { promises } from "dns";
+import jwt from 'jsonwebtoken'
 import { userRepository } from "../repository/user.repository";
 import { User } from "../types/models/user.model";
 import { LoginResponseDto } from "../types/responses/users/loginResponseDto";
@@ -36,7 +37,7 @@ class UserManager {
     }
 
     // Generate authentication token
-    const authToken = this.generateAuthToken();
+    const authToken = this.generateAuthToken(user.id);
 
     return {
       success: true,
@@ -62,8 +63,11 @@ class UserManager {
     return false;
   }
 
-  private generateAuthToken = (): string => {
-    return crypto.randomBytes(30).toString("hex");
+  private generateAuthToken = (userId: number): string => {
+    const payload = { id: userId }; 
+    const secretKey = process.env.JWT_SECRET as string; 
+    const token = jwt.sign(payload, secretKey, { expiresIn: '1h' }); // Token will expire in 1 hour 
+    return token;
   };
 
   private getHashedPassword = (password: string): string => {
