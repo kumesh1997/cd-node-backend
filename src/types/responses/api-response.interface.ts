@@ -4,12 +4,12 @@ export interface ResponseData<T> {
   data: T;
 }
 
-export interface PaginatedResult<R> {
-  entities: R[];
-  pagination: Pagination;
-}
+// export interface PaginatedResult<R> {
+//   entities: R[];
+//   pagination: Pagination;
+// }
 
-export interface Pagination {
-  length: number;
-  pageSize: number;
-}
+// export interface Pagination {
+//   length: number;
+//   pageSize: number;
+// }

@@ -1,11 +1,13 @@
 import { projectRepository } from "../repository/project.repository";
 import { PaginatedRequest } from "../types/requests/paginatedProject.request";
+import { ResponseData } from "../types/responses/api-response.interface";
 import { PaginatedResponse } from "../types/responses/paginatedProject.response";
+import { ProjectResponseDto } from "../types/responses/projects/projectResponseDto";
 
 class ProjectManager {
   async getPaginatedProjects(
     request: PaginatedRequest
-  ): Promise<PaginatedResponse> {
+  ): Promise<ResponseData<ProjectResponseDto[]>> {
     const allProjects = projectRepository.getAllProjects();
     const page = request.page || 1;
     const limit = request.limit || 10;
@@ -42,12 +44,22 @@ class ProjectManager {
     const endIndex = startIndex + limit;
     const paginatedProjects = filteredProjects.slice(startIndex, endIndex);
 
-    return {
-      total: filteredProjects.length,
-      page: page,
-      limit: limit,
+    if (!paginatedProjects) {
+      const responseData: ResponseData<ProjectResponseDto[]> = {
+        success: false,
+        message: "NO_DATE_FOUND",
+        data: [],
+      };
+      return responseData;
+    }
+
+    const responseData: ResponseData<ProjectResponseDto[]> = {
+      success: true,
+      message: "DATA_FOUND",
       data: paginatedProjects,
     };
+
+    return responseData;
   }
 }
 
