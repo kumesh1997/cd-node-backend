@@ -2,6 +2,7 @@ import express, { Express } from "express";
 import dotenv from "dotenv";
 import cors from "cors"
 import helmet from "helmet"
+import { errorMiddleware } from "./middlewares/error.middleware";
 
 const userRoutes = require('./routes/user.routes');
 const projectRoutes = require('./routes/project.routes');
@@ -15,9 +16,13 @@ app.use(express.urlencoded({extended : true}))
 app.use(cors())
 app.use(helmet())
 
+
 app.use('/users', userRoutes);
 app.use('/projects', projectRoutes);
 
+
+// Error handling middleware
+app.use(errorMiddleware);
 
 
 app.listen(port, () => {
