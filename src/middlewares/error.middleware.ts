@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-const errorMiddleware = (req: Request, res: Response, err: Error, next: NextFunction): void => {
+const errorMiddleware = (err: Error, req: Request, res: Response,  next: NextFunction): void => {
   let statusCode = 500;
   let errorMessage = "INTERNAL_SERVER_ERROR";
 

@@ -8,9 +8,11 @@ class ProjectManager {
   async getPaginatedProjects(
     request: PaginatedRequest
   ): Promise<ResponseData<ProjectResponseDto[]>> {
+    
     const allProjects = projectRepository.getAllProjects();
-    const page = request.page || 1;
-    const limit = request.limit || 10;
+    const totalCount = (await allProjects).length;
+    const page = request.page || null;
+    const limit = request.limit || null;
     const projectNameFilter = request.projectName?.toLowerCase() || "";
     const createdByFilter = request.createdBy?.toLowerCase() || "";
     const statusFilter = request.status?.toLowerCase() || "";
@@ -40,14 +42,20 @@ class ProjectManager {
     });
 
     // Paginate projects
-    const startIndex = (page - 1) * limit;
-    const endIndex = startIndex + limit;
-    const paginatedProjects = filteredProjects.slice(startIndex, endIndex);
+    let paginatedProjects = filteredProjects;
+    if(page && limit)
+    {
+      const startIndex = (page - 1) * limit;
+      const endIndex = startIndex + limit;
+      paginatedProjects = filteredProjects.slice(startIndex, endIndex);
+    }
+   
 
-    if (!paginatedProjects) {
+    if (paginatedProjects.length == 0) {
       const responseData: ResponseData<ProjectResponseDto[]> = {
         success: false,
         message: "NO_DATE_FOUND",
+        totalCount: 0,
         data: [],
       };
       return responseData;
@@ -56,6 +64,7 @@ class ProjectManager {
     const responseData: ResponseData<ProjectResponseDto[]> = {
       success: true,
       message: "DATA_FOUND",
+      totalCount: totalCount,
       data: paginatedProjects,
     };
 

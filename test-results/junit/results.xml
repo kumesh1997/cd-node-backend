@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="5" failures="0" errors="0" time="2.692">
+  <testsuite name="getById" errors="0" failures="0" skipped="4" timestamp="2024-11-28T08:46:57" time="2.476" tests="5">
+    <testcase classname="getById should return a user when userId exists" name="getById should return a user when userId exists" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="getById should return null when userId does not exist" name="getById should return null when userId does not exist" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="login should return no email found" name="login should return no email found" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="login should return invalid credentials" name="login should return invalid credentials" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="login should return login successful" name="login should return login successful" time="0.006">
+    </testcase>
+  </testsuite>
+</testsuites>
