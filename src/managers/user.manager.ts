@@ -16,6 +16,7 @@ class UserManager {
     email: string,
     password: string
   ): Promise<ResponseData<LoginResponseDto | null>> {
+    
     const user = await userRepository.getByEmail(email);
 
     if (!user) {
@@ -66,7 +67,7 @@ class UserManager {
   private generateAuthToken = (userId: number): string => {
     const payload = { id: userId }; 
     const secretKey = process.env.JWT_SECRET as string; 
-    const token = jwt.sign(payload, secretKey, { expiresIn: '1h' }); // Token will expire in 1 hour 
+    const token =  jwt.sign(payload, secretKey, { expiresIn: '1h' }); // Token will expire in 1 hour 
     return token;
   };
 

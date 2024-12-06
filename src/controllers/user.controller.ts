@@ -19,6 +19,12 @@ class UserController {
 
       const response = await userManager.login(email, password);
 
+      res.cookie('authToken', response.data?.token, {
+        httpOnly: true,        // Make the cookie HTTP-only
+        secure: true,          // Set to true if using HTTPS
+        sameSite: 'strict',    // Protects against CSRF attacks
+        maxAge: 3600000        // Cookie expiration time (1 hour)
+    });
       res.status(200).send(response);
     } catch (error: any) {
       res.status(500).send(error);
